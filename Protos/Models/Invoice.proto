@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+import "Models/Client.proto";
+package GrpcApiPractice;
+
+message Invoice
+{
+    uint64 id                       = 1;
+    string name                     = 2;
+    string address                  = 3;
+    repeated string invoice_details = 4;
+    GrpcApiPractice.Client client   = 5;
+}

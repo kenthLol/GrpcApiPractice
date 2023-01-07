@@ -1,0 +1,14 @@
+{
+    "explorer.compactFolders": false,
+    "workbench.list.openMode": "doubleClick",
+    "workbench.tree.indent": 20,
+    "cmake.configureSettings": {
+        "CMAKE_INSTALL_PREFIX": "${workspaceFolder}/build/Publish",
+        "CMAKE_TOOLCHAIN_FILE": "${env:VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+    },
+    "files.associations": {
+        "iostream": "cpp",
+        "memory": "cpp",
+        "string": "cpp"
+    }
+}

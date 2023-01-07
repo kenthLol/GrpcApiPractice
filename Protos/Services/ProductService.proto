@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package GrpcApiPractice;
+
+import "Models/Product.proto";
+import "Models/ServiceStatus.proto";
+import "google/protobuf/empty.proto";
+
+service ProductService
+{
+    rpc CreateProduct(GrpcApiPractice.Product) returns (GrpcApiPractice.ServiceStatus) { }
+    rpc ListProduct(google.protobuf.Empty) returns (ListProductResponse) { }
+}
+
+message ListProductResponse
+{
+  repeated GrpcApiPractice.Product products = 1;
+}

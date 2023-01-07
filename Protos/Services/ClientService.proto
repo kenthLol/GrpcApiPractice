@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package GrpcApiPractice;
+
+import "Models/Client.proto";
+import "Models/ServiceStatus.proto";
+import "google/protobuf/empty.proto";
+
+service ClientService
+{
+    rpc CreateClient(GrpcApiPractice.Client) returns (GrpcApiPractice.ServiceStatus) { }
+    rpc ListClient(google.protobuf.Empty) returns (ListClientResponse) { }
+}
+
+message ListClientResponse
+{
+    repeated GrpcApiPractice.Client client = 1;
+}
