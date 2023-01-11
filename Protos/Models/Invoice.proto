@@ -1,13 +1,14 @@
 syntax = "proto3";
 
 import "Models/Client.proto";
+import "Models/InvoiceDetails.proto";
 package GrpcApiPractice;
 
 message Invoice
 {
-    uint64 id                       = 1;
-    string name                     = 2;
-    string address                  = 3;
-    repeated string invoice_details = 4;
-    GrpcApiPractice.Client client   = 5;
+    uint64 id                                      = 1;
+    string name                                    = 2;
+    string address                                 = 3;
+    GrpcApiPractice.InvoiceDetails invoice_details = 4;
+    GrpcApiPractice.Client client                  = 5;
 }

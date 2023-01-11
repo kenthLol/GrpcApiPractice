@@ -1,47 +1,31 @@
-#ifndef D9EE267F_7106_4E19_A457_5E825EB5749E
-#define D9EE267F_7106_4E19_A457_5E825EB5749E
+#ifndef EA2AD668_641C_4501_A8E3_2E80D90270FE
+#define EA2AD668_641C_4501_A8E3_2E80D90270FE
 
-#include <string>
-#include <vector>
+#include "ClientRepository.hpp"
+#include "ProductRepository.hpp"
+#include "InvoiceRepository.hpp"
+#include "InvoiceDetailsRepository.hpp"
 
-class Database
+namespace GrpcApiPractice
 {
-  public:
-    ClientRepository Clients;
-};
+    class Database : public std::enable_shared_from_this<Database>
+    {
+    public:
+        Database();
+        std::shared_ptr<Database> GetPointer();
+        static std::shared_ptr<Database> Create();
 
-struct Client
-{
-    uint64_t Id;
-    uint64_t Id;
-    std::string Name;
-    std::string Phone;
-    std::string Email;
-};
+        std::shared_ptr<ClientRepository> Clients();
+        std::shared_ptr<ProductRepository> Products();
+        std::shared_ptr<InvoiceRepository> Invoices();
+        std::shared_ptr<InvoiceDetailsRepository> InvoiceDetails();
 
-class ClientRepository // Impl métodos, Patrón Iterator
-{
- public:
-  using value_type = ...
+    private:
+        std::shared_ptr<ClientRepository> m_Clients;
+        std::shared_ptr<ProductRepository> m_Products;
+        std::shared_ptr<InvoiceRepository> m_Invoices;
+        std::shared_ptr<InvoiceDetailsRepository> m_InvoiceDetails;
+    };
+}
 
-  ...
-  Toda la interfaz de un iterador
-  ...
-
-  Status AddClient(Client);
-  Status UpdateClient(ClientId, Client);
-  Status DeleteClient(ClientId);
-  Client* GetClienteById(ClientId);
-  Client* GetClienteByName(ClientName);
-
-  <Client-Repository-Iterator> begin();
-  <Client-Repository-Iterator> end();
-  <Client-Repository-Iterator> cbegin();
-  <Client-Repository-Iterator> cend(); 
-
- private:
-   std::vector<Client> m_Clients;  
-};
-
-
-#endif /* D9EE267F_7106_4E19_A457_5E825EB5749E */
+#endif /* EA2AD668_641C_4501_A8E3_2E80D90270FE */

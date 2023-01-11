@@ -31,6 +31,7 @@
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/unknown_field_set.h>
 #include "Models/Client.pb.h"
+#include "Models/InvoiceDetails.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_Models_2fInvoice_2eproto
@@ -178,36 +179,12 @@ class Invoice final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kInvoiceDetailsFieldNumber = 4,
     kNameFieldNumber = 2,
     kAddressFieldNumber = 3,
+    kInvoiceDetailsFieldNumber = 4,
     kClientFieldNumber = 5,
     kIdFieldNumber = 1,
   };
-  // repeated string invoice_details = 4;
-  int invoice_details_size() const;
-  private:
-  int _internal_invoice_details_size() const;
-  public:
-  void clear_invoice_details();
-  const std::string& invoice_details(int index) const;
-  std::string* mutable_invoice_details(int index);
-  void set_invoice_details(int index, const std::string& value);
-  void set_invoice_details(int index, std::string&& value);
-  void set_invoice_details(int index, const char* value);
-  void set_invoice_details(int index, const char* value, size_t size);
-  std::string* add_invoice_details();
-  void add_invoice_details(const std::string& value);
-  void add_invoice_details(std::string&& value);
-  void add_invoice_details(const char* value);
-  void add_invoice_details(const char* value, size_t size);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& invoice_details() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_invoice_details();
-  private:
-  const std::string& _internal_invoice_details(int index) const;
-  std::string* _internal_add_invoice_details();
-  public:
-
   // string name = 2;
   void clear_name();
   const std::string& name() const;
@@ -235,6 +212,24 @@ class Invoice final :
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_address(const std::string& value);
   std::string* _internal_mutable_address();
   public:
+
+  // .GrpcApiPractice.InvoiceDetails invoice_details = 4;
+  bool has_invoice_details() const;
+  private:
+  bool _internal_has_invoice_details() const;
+  public:
+  void clear_invoice_details();
+  const ::GrpcApiPractice::InvoiceDetails& invoice_details() const;
+  PROTOBUF_NODISCARD ::GrpcApiPractice::InvoiceDetails* release_invoice_details();
+  ::GrpcApiPractice::InvoiceDetails* mutable_invoice_details();
+  void set_allocated_invoice_details(::GrpcApiPractice::InvoiceDetails* invoice_details);
+  private:
+  const ::GrpcApiPractice::InvoiceDetails& _internal_invoice_details() const;
+  ::GrpcApiPractice::InvoiceDetails* _internal_mutable_invoice_details();
+  public:
+  void unsafe_arena_set_allocated_invoice_details(
+      ::GrpcApiPractice::InvoiceDetails* invoice_details);
+  ::GrpcApiPractice::InvoiceDetails* unsafe_arena_release_invoice_details();
 
   // .GrpcApiPractice.Client client = 5;
   bool has_client() const;
@@ -271,9 +266,9 @@ class Invoice final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> invoice_details_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr address_;
+    ::GrpcApiPractice::InvoiceDetails* invoice_details_;
     ::GrpcApiPractice::Client* client_;
     uint64_t id_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -412,79 +407,89 @@ inline void Invoice::set_allocated_address(std::string* address) {
   // @@protoc_insertion_point(field_set_allocated:GrpcApiPractice.Invoice.address)
 }
 
-// repeated string invoice_details = 4;
-inline int Invoice::_internal_invoice_details_size() const {
-  return _impl_.invoice_details_.size();
+// .GrpcApiPractice.InvoiceDetails invoice_details = 4;
+inline bool Invoice::_internal_has_invoice_details() const {
+  return this != internal_default_instance() && _impl_.invoice_details_ != nullptr;
 }
-inline int Invoice::invoice_details_size() const {
-  return _internal_invoice_details_size();
+inline bool Invoice::has_invoice_details() const {
+  return _internal_has_invoice_details();
 }
-inline void Invoice::clear_invoice_details() {
-  _impl_.invoice_details_.Clear();
+inline const ::GrpcApiPractice::InvoiceDetails& Invoice::_internal_invoice_details() const {
+  const ::GrpcApiPractice::InvoiceDetails* p = _impl_.invoice_details_;
+  return p != nullptr ? *p : reinterpret_cast<const ::GrpcApiPractice::InvoiceDetails&>(
+      ::GrpcApiPractice::_InvoiceDetails_default_instance_);
 }
-inline std::string* Invoice::add_invoice_details() {
-  std::string* _s = _internal_add_invoice_details();
-  // @@protoc_insertion_point(field_add_mutable:GrpcApiPractice.Invoice.invoice_details)
-  return _s;
-}
-inline const std::string& Invoice::_internal_invoice_details(int index) const {
-  return _impl_.invoice_details_.Get(index);
-}
-inline const std::string& Invoice::invoice_details(int index) const {
+inline const ::GrpcApiPractice::InvoiceDetails& Invoice::invoice_details() const {
   // @@protoc_insertion_point(field_get:GrpcApiPractice.Invoice.invoice_details)
-  return _internal_invoice_details(index);
+  return _internal_invoice_details();
 }
-inline std::string* Invoice::mutable_invoice_details(int index) {
-  // @@protoc_insertion_point(field_mutable:GrpcApiPractice.Invoice.invoice_details)
-  return _impl_.invoice_details_.Mutable(index);
+inline void Invoice::unsafe_arena_set_allocated_invoice_details(
+    ::GrpcApiPractice::InvoiceDetails* invoice_details) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.invoice_details_);
+  }
+  _impl_.invoice_details_ = invoice_details;
+  if (invoice_details) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:GrpcApiPractice.Invoice.invoice_details)
 }
-inline void Invoice::set_invoice_details(int index, const std::string& value) {
-  _impl_.invoice_details_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set:GrpcApiPractice.Invoice.invoice_details)
+inline ::GrpcApiPractice::InvoiceDetails* Invoice::release_invoice_details() {
+  
+  ::GrpcApiPractice::InvoiceDetails* temp = _impl_.invoice_details_;
+  _impl_.invoice_details_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
 }
-inline void Invoice::set_invoice_details(int index, std::string&& value) {
-  _impl_.invoice_details_.Mutable(index)->assign(std::move(value));
-  // @@protoc_insertion_point(field_set:GrpcApiPractice.Invoice.invoice_details)
+inline ::GrpcApiPractice::InvoiceDetails* Invoice::unsafe_arena_release_invoice_details() {
+  // @@protoc_insertion_point(field_release:GrpcApiPractice.Invoice.invoice_details)
+  
+  ::GrpcApiPractice::InvoiceDetails* temp = _impl_.invoice_details_;
+  _impl_.invoice_details_ = nullptr;
+  return temp;
 }
-inline void Invoice::set_invoice_details(int index, const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  _impl_.invoice_details_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:GrpcApiPractice.Invoice.invoice_details)
-}
-inline void Invoice::set_invoice_details(int index, const char* value, size_t size) {
-  _impl_.invoice_details_.Mutable(index)->assign(
-    reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:GrpcApiPractice.Invoice.invoice_details)
-}
-inline std::string* Invoice::_internal_add_invoice_details() {
-  return _impl_.invoice_details_.Add();
-}
-inline void Invoice::add_invoice_details(const std::string& value) {
-  _impl_.invoice_details_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:GrpcApiPractice.Invoice.invoice_details)
-}
-inline void Invoice::add_invoice_details(std::string&& value) {
-  _impl_.invoice_details_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:GrpcApiPractice.Invoice.invoice_details)
-}
-inline void Invoice::add_invoice_details(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  _impl_.invoice_details_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:GrpcApiPractice.Invoice.invoice_details)
-}
-inline void Invoice::add_invoice_details(const char* value, size_t size) {
-  _impl_.invoice_details_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:GrpcApiPractice.Invoice.invoice_details)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
-Invoice::invoice_details() const {
-  // @@protoc_insertion_point(field_list:GrpcApiPractice.Invoice.invoice_details)
+inline ::GrpcApiPractice::InvoiceDetails* Invoice::_internal_mutable_invoice_details() {
+  
+  if (_impl_.invoice_details_ == nullptr) {
+    auto* p = CreateMaybeMessage<::GrpcApiPractice::InvoiceDetails>(GetArenaForAllocation());
+    _impl_.invoice_details_ = p;
+  }
   return _impl_.invoice_details_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
-Invoice::mutable_invoice_details() {
-  // @@protoc_insertion_point(field_mutable_list:GrpcApiPractice.Invoice.invoice_details)
-  return &_impl_.invoice_details_;
+inline ::GrpcApiPractice::InvoiceDetails* Invoice::mutable_invoice_details() {
+  ::GrpcApiPractice::InvoiceDetails* _msg = _internal_mutable_invoice_details();
+  // @@protoc_insertion_point(field_mutable:GrpcApiPractice.Invoice.invoice_details)
+  return _msg;
+}
+inline void Invoice::set_allocated_invoice_details(::GrpcApiPractice::InvoiceDetails* invoice_details) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.invoice_details_);
+  }
+  if (invoice_details) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(invoice_details));
+    if (message_arena != submessage_arena) {
+      invoice_details = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, invoice_details, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.invoice_details_ = invoice_details;
+  // @@protoc_insertion_point(field_set_allocated:GrpcApiPractice.Invoice.invoice_details)
 }
 
 // .GrpcApiPractice.Client client = 5;
