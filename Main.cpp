@@ -18,6 +18,7 @@ int32_t main()
     server_builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
 
     auto database = GrpcApiPractice::Database::Create();
+    database->InitializeRepository();
 
     ClientService client_service{database};
     server_builder.RegisterService(&client_service);
