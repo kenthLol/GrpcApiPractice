@@ -18,6 +18,7 @@ public:
 
     virtual ::grpc::Status CreateClient(::grpc::ServerContext *context, const ::GrpcApiPractice::Client *request, ::GrpcApiPractice::ServiceStatus *response) override;
     virtual ::grpc::Status ListClient(::grpc::ServerContext *context, const ::google::protobuf::Empty *request, ::GrpcApiPractice::ListClientResponse *response) override;
+    virtual ::grpc::Status ListClientById(::grpc::ServerContext *context, const ::GrpcApiPractice::ClientByIdRequest *request, ::GrpcApiPractice::ListClientResponse *response) override;
 
 private:
     std::shared_ptr<GrpcApiPractice::Database> m_Database;
