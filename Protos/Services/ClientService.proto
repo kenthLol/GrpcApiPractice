@@ -10,6 +10,12 @@ service ClientService
 {
     rpc CreateClient(GrpcApiPractice.Client) returns (GrpcApiPractice.ServiceStatus) { }
     rpc ListClient(google.protobuf.Empty) returns (ListClientResponse) { }
+    rpc ListClientById (ClientByIdRequest) returns (ListClientResponse) { }
+}
+
+message ClientByIdRequest
+{
+    int64 client_id = 1;
 }
 
 message ListClientResponse

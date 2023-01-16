@@ -48,16 +48,168 @@ struct TableStruct_Services_2fClientService_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Services_2fClientService_2eproto;
 namespace GrpcApiPractice {
+class ClientByIdRequest;
+struct ClientByIdRequestDefaultTypeInternal;
+extern ClientByIdRequestDefaultTypeInternal _ClientByIdRequest_default_instance_;
 class ListClientResponse;
 struct ListClientResponseDefaultTypeInternal;
 extern ListClientResponseDefaultTypeInternal _ListClientResponse_default_instance_;
 }  // namespace GrpcApiPractice
 PROTOBUF_NAMESPACE_OPEN
+template<> ::GrpcApiPractice::ClientByIdRequest* Arena::CreateMaybeMessage<::GrpcApiPractice::ClientByIdRequest>(Arena*);
 template<> ::GrpcApiPractice::ListClientResponse* Arena::CreateMaybeMessage<::GrpcApiPractice::ListClientResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace GrpcApiPractice {
 
 // ===================================================================
+
+class ClientByIdRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:GrpcApiPractice.ClientByIdRequest) */ {
+ public:
+  inline ClientByIdRequest() : ClientByIdRequest(nullptr) {}
+  ~ClientByIdRequest() override;
+  explicit PROTOBUF_CONSTEXPR ClientByIdRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ClientByIdRequest(const ClientByIdRequest& from);
+  ClientByIdRequest(ClientByIdRequest&& from) noexcept
+    : ClientByIdRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline ClientByIdRequest& operator=(const ClientByIdRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ClientByIdRequest& operator=(ClientByIdRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const ClientByIdRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ClientByIdRequest* internal_default_instance() {
+    return reinterpret_cast<const ClientByIdRequest*>(
+               &_ClientByIdRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    0;
+
+  friend void swap(ClientByIdRequest& a, ClientByIdRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ClientByIdRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ClientByIdRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ClientByIdRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ClientByIdRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const ClientByIdRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const ClientByIdRequest& from) {
+    ClientByIdRequest::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ClientByIdRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "GrpcApiPractice.ClientByIdRequest";
+  }
+  protected:
+  explicit ClientByIdRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kClientIdFieldNumber = 1,
+  };
+  // int64 client_id = 1;
+  void clear_client_id();
+  int64_t client_id() const;
+  void set_client_id(int64_t value);
+  private:
+  int64_t _internal_client_id() const;
+  void _internal_set_client_id(int64_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:GrpcApiPractice.ClientByIdRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int64_t client_id_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Services_2fClientService_2eproto;
+};
+// -------------------------------------------------------------------
 
 class ListClientResponse final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:GrpcApiPractice.ListClientResponse) */ {
@@ -107,7 +259,7 @@ class ListClientResponse final :
                &_ListClientResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    0;
+    1;
 
   friend void swap(ListClientResponse& a, ListClientResponse& b) {
     a.Swap(&b);
@@ -223,6 +375,30 @@ class ListClientResponse final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
+// ClientByIdRequest
+
+// int64 client_id = 1;
+inline void ClientByIdRequest::clear_client_id() {
+  _impl_.client_id_ = int64_t{0};
+}
+inline int64_t ClientByIdRequest::_internal_client_id() const {
+  return _impl_.client_id_;
+}
+inline int64_t ClientByIdRequest::client_id() const {
+  // @@protoc_insertion_point(field_get:GrpcApiPractice.ClientByIdRequest.client_id)
+  return _internal_client_id();
+}
+inline void ClientByIdRequest::_internal_set_client_id(int64_t value) {
+  
+  _impl_.client_id_ = value;
+}
+inline void ClientByIdRequest::set_client_id(int64_t value) {
+  _internal_set_client_id(value);
+  // @@protoc_insertion_point(field_set:GrpcApiPractice.ClientByIdRequest.client_id)
+}
+
+// -------------------------------------------------------------------
+
 // ListClientResponse
 
 // repeated .GrpcApiPractice.Client client = 1;
@@ -265,6 +441,8 @@ ListClientResponse::client() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 

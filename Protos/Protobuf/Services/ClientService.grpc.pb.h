@@ -49,6 +49,13 @@ class ClientService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GrpcApiPractice::ListClientResponse>> PrepareAsyncListClient(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GrpcApiPractice::ListClientResponse>>(PrepareAsyncListClientRaw(context, request, cq));
     }
+    virtual ::grpc::Status ListClientById(::grpc::ClientContext* context, const ::GrpcApiPractice::ClientByIdRequest& request, ::GrpcApiPractice::ListClientResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GrpcApiPractice::ListClientResponse>> AsyncListClientById(::grpc::ClientContext* context, const ::GrpcApiPractice::ClientByIdRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GrpcApiPractice::ListClientResponse>>(AsyncListClientByIdRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GrpcApiPractice::ListClientResponse>> PrepareAsyncListClientById(::grpc::ClientContext* context, const ::GrpcApiPractice::ClientByIdRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GrpcApiPractice::ListClientResponse>>(PrepareAsyncListClientByIdRaw(context, request, cq));
+    }
     class async_interface {
      public:
       virtual ~async_interface() {}
@@ -56,6 +63,8 @@ class ClientService final {
       virtual void CreateClient(::grpc::ClientContext* context, const ::GrpcApiPractice::Client* request, ::GrpcApiPractice::ServiceStatus* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void ListClient(::grpc::ClientContext* context, const ::google::protobuf::Empty* request, ::GrpcApiPractice::ListClientResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void ListClient(::grpc::ClientContext* context, const ::google::protobuf::Empty* request, ::GrpcApiPractice::ListClientResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void ListClientById(::grpc::ClientContext* context, const ::GrpcApiPractice::ClientByIdRequest* request, ::GrpcApiPractice::ListClientResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ListClientById(::grpc::ClientContext* context, const ::GrpcApiPractice::ClientByIdRequest* request, ::GrpcApiPractice::ListClientResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
@@ -65,6 +74,8 @@ class ClientService final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::GrpcApiPractice::ServiceStatus>* PrepareAsyncCreateClientRaw(::grpc::ClientContext* context, const ::GrpcApiPractice::Client& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::GrpcApiPractice::ListClientResponse>* AsyncListClientRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::GrpcApiPractice::ListClientResponse>* PrepareAsyncListClientRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::GrpcApiPractice::ListClientResponse>* AsyncListClientByIdRaw(::grpc::ClientContext* context, const ::GrpcApiPractice::ClientByIdRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::GrpcApiPractice::ListClientResponse>* PrepareAsyncListClientByIdRaw(::grpc::ClientContext* context, const ::GrpcApiPractice::ClientByIdRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -83,6 +94,13 @@ class ClientService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GrpcApiPractice::ListClientResponse>> PrepareAsyncListClient(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GrpcApiPractice::ListClientResponse>>(PrepareAsyncListClientRaw(context, request, cq));
     }
+    ::grpc::Status ListClientById(::grpc::ClientContext* context, const ::GrpcApiPractice::ClientByIdRequest& request, ::GrpcApiPractice::ListClientResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GrpcApiPractice::ListClientResponse>> AsyncListClientById(::grpc::ClientContext* context, const ::GrpcApiPractice::ClientByIdRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GrpcApiPractice::ListClientResponse>>(AsyncListClientByIdRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GrpcApiPractice::ListClientResponse>> PrepareAsyncListClientById(::grpc::ClientContext* context, const ::GrpcApiPractice::ClientByIdRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GrpcApiPractice::ListClientResponse>>(PrepareAsyncListClientByIdRaw(context, request, cq));
+    }
     class async final :
       public StubInterface::async_interface {
      public:
@@ -90,6 +108,8 @@ class ClientService final {
       void CreateClient(::grpc::ClientContext* context, const ::GrpcApiPractice::Client* request, ::GrpcApiPractice::ServiceStatus* response, ::grpc::ClientUnaryReactor* reactor) override;
       void ListClient(::grpc::ClientContext* context, const ::google::protobuf::Empty* request, ::GrpcApiPractice::ListClientResponse* response, std::function<void(::grpc::Status)>) override;
       void ListClient(::grpc::ClientContext* context, const ::google::protobuf::Empty* request, ::GrpcApiPractice::ListClientResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void ListClientById(::grpc::ClientContext* context, const ::GrpcApiPractice::ClientByIdRequest* request, ::GrpcApiPractice::ListClientResponse* response, std::function<void(::grpc::Status)>) override;
+      void ListClientById(::grpc::ClientContext* context, const ::GrpcApiPractice::ClientByIdRequest* request, ::GrpcApiPractice::ListClientResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -105,8 +125,11 @@ class ClientService final {
     ::grpc::ClientAsyncResponseReader< ::GrpcApiPractice::ServiceStatus>* PrepareAsyncCreateClientRaw(::grpc::ClientContext* context, const ::GrpcApiPractice::Client& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::GrpcApiPractice::ListClientResponse>* AsyncListClientRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::GrpcApiPractice::ListClientResponse>* PrepareAsyncListClientRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::GrpcApiPractice::ListClientResponse>* AsyncListClientByIdRaw(::grpc::ClientContext* context, const ::GrpcApiPractice::ClientByIdRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::GrpcApiPractice::ListClientResponse>* PrepareAsyncListClientByIdRaw(::grpc::ClientContext* context, const ::GrpcApiPractice::ClientByIdRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_CreateClient_;
     const ::grpc::internal::RpcMethod rpcmethod_ListClient_;
+    const ::grpc::internal::RpcMethod rpcmethod_ListClientById_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -116,6 +139,7 @@ class ClientService final {
     virtual ~Service();
     virtual ::grpc::Status CreateClient(::grpc::ServerContext* context, const ::GrpcApiPractice::Client* request, ::GrpcApiPractice::ServiceStatus* response);
     virtual ::grpc::Status ListClient(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GrpcApiPractice::ListClientResponse* response);
+    virtual ::grpc::Status ListClientById(::grpc::ServerContext* context, const ::GrpcApiPractice::ClientByIdRequest* request, ::GrpcApiPractice::ListClientResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_CreateClient : public BaseClass {
@@ -157,7 +181,27 @@ class ClientService final {
       ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_CreateClient<WithAsyncMethod_ListClient<Service > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_ListClientById : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_ListClientById() {
+      ::grpc::Service::MarkMethodAsync(2);
+    }
+    ~WithAsyncMethod_ListClientById() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListClientById(::grpc::ServerContext* /*context*/, const ::GrpcApiPractice::ClientByIdRequest* /*request*/, ::GrpcApiPractice::ListClientResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestListClientById(::grpc::ServerContext* context, ::GrpcApiPractice::ClientByIdRequest* request, ::grpc::ServerAsyncResponseWriter< ::GrpcApiPractice::ListClientResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_CreateClient<WithAsyncMethod_ListClient<WithAsyncMethod_ListClientById<Service > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_CreateClient : public BaseClass {
    private:
@@ -212,7 +256,34 @@ class ClientService final {
     virtual ::grpc::ServerUnaryReactor* ListClient(
       ::grpc::CallbackServerContext* /*context*/, const ::google::protobuf::Empty* /*request*/, ::GrpcApiPractice::ListClientResponse* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_CreateClient<WithCallbackMethod_ListClient<Service > > CallbackService;
+  template <class BaseClass>
+  class WithCallbackMethod_ListClientById : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_ListClientById() {
+      ::grpc::Service::MarkMethodCallback(2,
+          new ::grpc::internal::CallbackUnaryHandler< ::GrpcApiPractice::ClientByIdRequest, ::GrpcApiPractice::ListClientResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::GrpcApiPractice::ClientByIdRequest* request, ::GrpcApiPractice::ListClientResponse* response) { return this->ListClientById(context, request, response); }));}
+    void SetMessageAllocatorFor_ListClientById(
+        ::grpc::MessageAllocator< ::GrpcApiPractice::ClientByIdRequest, ::GrpcApiPractice::ListClientResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::GrpcApiPractice::ClientByIdRequest, ::GrpcApiPractice::ListClientResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_ListClientById() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListClientById(::grpc::ServerContext* /*context*/, const ::GrpcApiPractice::ClientByIdRequest* /*request*/, ::GrpcApiPractice::ListClientResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ListClientById(
+      ::grpc::CallbackServerContext* /*context*/, const ::GrpcApiPractice::ClientByIdRequest* /*request*/, ::GrpcApiPractice::ListClientResponse* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_CreateClient<WithCallbackMethod_ListClient<WithCallbackMethod_ListClientById<Service > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_CreateClient : public BaseClass {
@@ -244,6 +315,23 @@ class ClientService final {
     }
     // disable synchronous version of this method
     ::grpc::Status ListClient(::grpc::ServerContext* /*context*/, const ::google::protobuf::Empty* /*request*/, ::GrpcApiPractice::ListClientResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_ListClientById : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_ListClientById() {
+      ::grpc::Service::MarkMethodGeneric(2);
+    }
+    ~WithGenericMethod_ListClientById() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListClientById(::grpc::ServerContext* /*context*/, const ::GrpcApiPractice::ClientByIdRequest* /*request*/, ::GrpcApiPractice::ListClientResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -289,6 +377,26 @@ class ClientService final {
     }
   };
   template <class BaseClass>
+  class WithRawMethod_ListClientById : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_ListClientById() {
+      ::grpc::Service::MarkMethodRaw(2);
+    }
+    ~WithRawMethod_ListClientById() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListClientById(::grpc::ServerContext* /*context*/, const ::GrpcApiPractice::ClientByIdRequest* /*request*/, ::GrpcApiPractice::ListClientResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestListClientById(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithRawCallbackMethod_CreateClient : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
@@ -330,6 +438,28 @@ class ClientService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* ListClient(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_ListClientById : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_ListClientById() {
+      ::grpc::Service::MarkMethodRawCallback(2,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListClientById(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_ListClientById() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListClientById(::grpc::ServerContext* /*context*/, const ::GrpcApiPractice::ClientByIdRequest* /*request*/, ::GrpcApiPractice::ListClientResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ListClientById(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
@@ -386,9 +516,36 @@ class ClientService final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedListClient(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::protobuf::Empty,::GrpcApiPractice::ListClientResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_CreateClient<WithStreamedUnaryMethod_ListClient<Service > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_ListClientById : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_ListClientById() {
+      ::grpc::Service::MarkMethodStreamed(2,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::GrpcApiPractice::ClientByIdRequest, ::GrpcApiPractice::ListClientResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::GrpcApiPractice::ClientByIdRequest, ::GrpcApiPractice::ListClientResponse>* streamer) {
+                       return this->StreamedListClientById(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_ListClientById() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status ListClientById(::grpc::ServerContext* /*context*/, const ::GrpcApiPractice::ClientByIdRequest* /*request*/, ::GrpcApiPractice::ListClientResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedListClientById(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::GrpcApiPractice::ClientByIdRequest,::GrpcApiPractice::ListClientResponse>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_CreateClient<WithStreamedUnaryMethod_ListClient<WithStreamedUnaryMethod_ListClientById<Service > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_CreateClient<WithStreamedUnaryMethod_ListClient<Service > > StreamedService;
+  typedef WithStreamedUnaryMethod_CreateClient<WithStreamedUnaryMethod_ListClient<WithStreamedUnaryMethod_ListClientById<Service > > > StreamedService;
 };
 
 }  // namespace GrpcApiPractice
