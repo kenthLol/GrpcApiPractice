@@ -54,6 +54,20 @@ GenerateProtobuf(
 add_executable(
     ${PROJECT_NAME}
     Main.cpp
+    Repository/ClientRepository.cpp
+    Repository/ClientRepository.hpp
+    Repository/InvoiceDetailsRepository.cpp
+    Repository/InvoiceDetailsRepository.hpp
+    Repository/InvoiceRepository.cpp
+    Repository/InvoiceRepository.hpp
+    Repository/ProductRepository.cpp
+    Repository/ProductRepository.hpp
+    Repository/Database.cpp
+    Repository/Database.hpp
+    Services/ClientService.cpp
+    Services/ClientService.hpp
+    Services/ProductService.cpp
+    Services/ProductService.hpp
     Protos/Protobuf/Models/Client.grpc.pb.cc
     Protos/Protobuf/Models/Client.grpc.pb.h
     Protos/Protobuf/Models/Client.pb.h
@@ -92,7 +106,11 @@ target_link_libraries(
     gRPC::grpc++_reflection
 )
 
-target_include_directories(${PROJECT_NAME} PRIVATE Protos/Protobuf)
+target_include_directories(${PROJECT_NAME} 
+    PRIVATE
+      Protos/Protobuf
+      ${CMAKE_SOURCE_DIR}
+)
 
 target_compile_features(
     ${PROJECT_NAME}
