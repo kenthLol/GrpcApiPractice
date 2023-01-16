@@ -1,7 +1,10 @@
 #ifndef D7D1C89D_C23B_4E9F_B057_2F464120072D
 #define D7D1C89D_C23B_4E9F_B057_2F464120072D
 
+#include <list>
+#include <optional>
 #include <memory>
+#include "Models/Invoice.hpp"
 
 namespace GrpcApiPractice
 {
@@ -10,12 +13,27 @@ namespace GrpcApiPractice
     class InvoiceRepository : public std::enable_shared_from_this<InvoiceRepository>
     {
     public:
+        using value_type = Models::Invoice;
+        using size_type = std::size_t;
+        using difference_type = std::ptrdiff_t;
+        using reference = value_type &;
+        using const_reference = const value_type &;
+        using pointer = value_type *;
+        using const_pointer = const value_type *;
+        using iterator = void;
+        using const_iterator = void;
+
         InvoiceRepository(const std::shared_ptr<Database> &database);
         std::shared_ptr<InvoiceRepository> GetPointer();
         static std::shared_ptr<InvoiceRepository> Create(const std::shared_ptr<Database> &database);
+        void AddInvoice(const Models::Invoice &invoice);
+        void UpdateInvoice(const uint64_t id, const Models::Invoice &invoice);
+        void DeleteInvoiceById(const uint64_t id);
+        std::optional<Models::Invoice> FindInvoiceById(const uint64_t id);
 
     private:
         std::shared_ptr<Database> m_Database;
+        std::list<Models::Invoice> m_Invoice;
     };
 }
 

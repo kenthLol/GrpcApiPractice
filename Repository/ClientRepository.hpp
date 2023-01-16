@@ -4,6 +4,7 @@
 #include <memory>
 #include <list>
 #include <optional>
+#include <algorithm>
 #include "Models/Client.hpp"
 
 namespace GrpcApiPractice
@@ -20,8 +21,8 @@ namespace GrpcApiPractice
         using const_reference = const value_type &;
         using pointer = value_type *;
         using const_pointer = const value_type *;
-        using iterator = void;
-        using const_iterator = void;
+        using iterator = std::list<value_type>::iterator;
+        using const_iterator = std::list<value_type>::const_iterator;
 
         ClientRepository(const std::shared_ptr<Database> &database);
         std::shared_ptr<ClientRepository> GetPointer();
@@ -30,6 +31,9 @@ namespace GrpcApiPractice
         void UpdateClient(const uint64_t id, const Models::Client &client);
         void DeleteClientById(const uint64_t id);
         std::optional<Models::Client> FindClientById(const uint64_t id);
+
+        iterator begin();
+        iterator end();
 
     private:
         std::shared_ptr<Database> m_Database;

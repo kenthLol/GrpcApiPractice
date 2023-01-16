@@ -3,13 +3,6 @@
 namespace GrpcApiPractice
 {
     Database::Database()
-        : m_Clients(ClientRepository::Create(GetPointer())) //
-          ,
-          m_Products(ProductRepository::Create(GetPointer())) //
-          ,
-          m_Invoices(InvoiceRepository::Create(GetPointer())) //
-          ,
-          m_InvoiceDetails(InvoiceDetailsRepository::Create(GetPointer()))
     {
     }
 
@@ -41,5 +34,13 @@ namespace GrpcApiPractice
     std::shared_ptr<InvoiceDetailsRepository> Database::InvoiceDetails()
     {
         return m_InvoiceDetails->GetPointer();
+    }
+
+    void Database::InitializeRepository() noexcept
+    {
+        m_Clients = ClientRepository::Create(GetPointer());
+        m_Products = ProductRepository::Create(GetPointer());
+        m_Invoices = InvoiceRepository::Create(GetPointer());
+        m_InvoiceDetails = InvoiceDetailsRepository::Create(GetPointer());
     }
 }

@@ -19,6 +19,7 @@ namespace GrpcApiPractice
         std::shared_ptr<ProductRepository> Products();
         std::shared_ptr<InvoiceRepository> Invoices();
         std::shared_ptr<InvoiceDetailsRepository> InvoiceDetails();
+        void InitializeRepository() noexcept;
 
     private:
         std::shared_ptr<ClientRepository> m_Clients;

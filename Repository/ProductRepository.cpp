@@ -16,4 +16,21 @@ namespace GrpcApiPractice
     {
         return std::make_shared<ProductRepository>(database);
     }
+
+    void ProductRepository::AddProduct(const Models::Product &product)
+    {
+    }
+
+    void ProductRepository::UpdateProduct(const uint64_t id, const Models::Product &product)
+    {
+    }
+
+    void ProductRepository::DeleteProductById(const uint64_t id)
+    {
+    }
+
+    std::optional<Models::Product> ProductRepository::FindProductById(const uint64_t id)
+    {
+        return {};
+    }
 }

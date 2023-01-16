@@ -16,4 +16,21 @@ namespace GrpcApiPractice
     {
         return std::make_shared<InvoiceRepository>(database);
     }
+
+    void InvoiceRepository::AddInvoice(const Models::Invoice &invoice)
+    {
+    }
+
+    void InvoiceRepository::UpdateInvoice(const uint64_t id, const Models::Invoice &invoice)
+    {
+    }
+
+    void InvoiceRepository::DeleteInvoiceById(const uint64_t id)
+    {
+    }
+
+    std::optional<Models::Invoice> InvoiceRepository::FindInvoiceById(const uint64_t id)
+    {
+        return {};
+    }
 }
