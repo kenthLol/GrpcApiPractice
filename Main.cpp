@@ -23,8 +23,8 @@ int32_t main()
     ClientService client_service{database};
     server_builder.RegisterService(&client_service);
 
-    // ProductService product_service{ database };
-    // server_builder.RegisterService(&product_service);
+    ProductService product_service{database};
+    server_builder.RegisterService(&product_service);
 
     std::unique_ptr<grpc::Server> server{server_builder.BuildAndStart()};
     std::clog << "Server Listening On: " << server_address << std::endl;
