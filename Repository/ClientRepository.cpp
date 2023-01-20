@@ -17,20 +17,22 @@ namespace GrpcApiPractice
         return std::make_shared<ClientRepository>(database);
     }
 
-    void ClientRepository::AddClient(const Models::Client &client)
+    std::weak_ptr<GrpcApiPractice::Models::Client> ClientRepository::AddClient(const Models::Client &client)
     {
-        m_Client.emplace_back(client);
+        auto new_client = std::make_shared<Models::Client>(client);
+        m_Client.emplace_back(new_client);
+        return new_client;
     }
 
     void ClientRepository::UpdateClient(const uint64_t id, const Models::Client &client)
     {
         for (auto &customer : m_Client)
         {
-            if (customer.Id == id)
+            if (customer->Id == id)
             {
-                customer.Name = client.Name;
-                customer.Phone = client.Phone;
-                customer.Email = client.Email;
+                customer->Name = client.Name;
+                customer->Phone = client.Phone;
+                customer->Email = client.Email;
                 break;
             }
         }
@@ -39,7 +41,7 @@ namespace GrpcApiPractice
     void ClientRepository::DeleteClientById(const uint64_t id)
     {
         auto aux = std::find_if(m_Client.begin(), m_Client.end(), [&](value_type &client)
-                                { return client.Id == client.Id; });
+                                { return client->Id == client->Id; });
 
         if (aux != m_Client.end())
         {
@@ -47,11 +49,11 @@ namespace GrpcApiPractice
         }
     }
 
-    std::optional<Models::Client> ClientRepository::FindClientById(const uint64_t id)
+    std::optional<std::weak_ptr<Models::Client>> ClientRepository::FindClientById(const uint64_t id)
     {
-        for (const auto client : m_Client)
+        for (const auto &client : m_Client)
         {
-            if (client.Id == id)
+            if (client->Id == id)
             {
                 return client;
             }
