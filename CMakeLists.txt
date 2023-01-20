@@ -51,6 +51,12 @@ GenerateProtobuf(
   Services/ProductService.proto
 )
 
+GenerateProtobuf(
+  ${CMAKE_SOURCE_DIR}/Protos # --proto_path
+  ${CMAKE_SOURCE_DIR}/Protos/Protobuf # --cpp_out / --grpc_out
+  Services/InvoiceService.proto
+)
+
 add_executable(
     ${PROJECT_NAME}
     Main.cpp
@@ -96,6 +102,10 @@ add_executable(
     Protos/Protobuf/Services/ProductService.grpc.pb.h
     Protos/Protobuf/Services/ProductService.pb.cc
     Protos/Protobuf/Services/ProductService.pb.h
+    Protos/Protobuf/Services/InvoiceService.grpc.pb.cc
+    Protos/Protobuf/Services/InvoiceService.grpc.pb.h
+    Protos/Protobuf/Services/InvoiceService.pb.cc
+    Protos/Protobuf/Services/InvoiceService.pb.h
 )
 
 target_link_libraries(
