@@ -21,6 +21,10 @@ public:
     ListProduct(::grpc::ServerContext *context,
                 const ::google::protobuf::Empty *request,
                 ::GrpcApiPractice::ListProductResponse *response) override;
+    virtual ::grpc::Status
+    ListProductById(::grpc::ServerContext *context,
+                    const ::GrpcApiPractice::ProductByIdRequest *request,
+                    ::GrpcApiPractice::ListProductResponse *response) override;
 
 private:
     std::shared_ptr<GrpcApiPractice::Database> m_Database;
