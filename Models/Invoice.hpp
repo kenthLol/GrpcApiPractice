@@ -3,6 +3,7 @@
 
 #include "Client.hpp"
 #include "InvoiceDetails.hpp"
+#include <vector>
 
 namespace GrpcApiPractice::Models
 {
@@ -11,8 +12,8 @@ namespace GrpcApiPractice::Models
         uint64_t id;
         std::string name;
         std::string address;
-        InvoiceDetails invoice_details;
-        Client client;
+        std::vector<std::weak_ptr<InvoiceDetails>> invoice_details;
+        std::weak_ptr<Client> client;
     };
 }
 

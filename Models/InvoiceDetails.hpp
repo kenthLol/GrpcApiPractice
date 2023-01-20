@@ -5,9 +5,12 @@
 
 namespace GrpcApiPractice::Models
 {
+    struct Invoice;
+
     struct InvoiceDetails
     {
-        Product product;
+        std::weak_ptr<Product> product;
+        std::weak_ptr<Invoice> invoice;
         double deduction;
         int64_t quantity;
         int64_t total;
