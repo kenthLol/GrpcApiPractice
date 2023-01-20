@@ -23,9 +23,9 @@ namespace _pbi = _pb::internal;
 namespace GrpcApiPractice {
 PROTOBUF_CONSTEXPR Invoice::Invoice(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+    /*decltype(_impl_.invoice_details_)*/{}
+  , /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.address_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.invoice_details_)*/nullptr
   , /*decltype(_impl_.client_)*/nullptr
   , /*decltype(_impl_.id_)*/uint64_t{0u}
   , /*decltype(_impl_._cached_size_)*/{}} {}
@@ -69,7 +69,7 @@ const char descriptor_table_protodef_Models_2fInvoice_2eproto[] PROTOBUF_SECTION
   "\023Models/Client.proto\032\033Models/InvoiceDeta"
   "ils.proto\"\227\001\n\007Invoice\022\n\n\002id\030\001 \001(\004\022\014\n\004nam"
   "e\030\002 \001(\t\022\017\n\007address\030\003 \001(\t\0228\n\017invoice_deta"
-  "ils\030\004 \001(\0132\037.GrpcApiPractice.InvoiceDetai"
+  "ils\030\004 \003(\0132\037.GrpcApiPractice.InvoiceDetai"
   "ls\022\'\n\006client\030\005 \001(\0132\027.GrpcApiPractice.Cli"
   "entb\006proto3"
   ;
@@ -98,23 +98,15 @@ namespace GrpcApiPractice {
 
 class Invoice::_Internal {
  public:
-  static const ::GrpcApiPractice::InvoiceDetails& invoice_details(const Invoice* msg);
   static const ::GrpcApiPractice::Client& client(const Invoice* msg);
 };
 
-const ::GrpcApiPractice::InvoiceDetails&
-Invoice::_Internal::invoice_details(const Invoice* msg) {
-  return *msg->_impl_.invoice_details_;
-}
 const ::GrpcApiPractice::Client&
 Invoice::_Internal::client(const Invoice* msg) {
   return *msg->_impl_.client_;
 }
 void Invoice::clear_invoice_details() {
-  if (GetArenaForAllocation() == nullptr && _impl_.invoice_details_ != nullptr) {
-    delete _impl_.invoice_details_;
-  }
-  _impl_.invoice_details_ = nullptr;
+  _impl_.invoice_details_.Clear();
 }
 void Invoice::clear_client() {
   if (GetArenaForAllocation() == nullptr && _impl_.client_ != nullptr) {
@@ -132,9 +124,9 @@ Invoice::Invoice(const Invoice& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   Invoice* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.name_){}
+      decltype(_impl_.invoice_details_){from._impl_.invoice_details_}
+    , decltype(_impl_.name_){}
     , decltype(_impl_.address_){}
-    , decltype(_impl_.invoice_details_){nullptr}
     , decltype(_impl_.client_){nullptr}
     , decltype(_impl_.id_){}
     , /*decltype(_impl_._cached_size_)*/{}};
@@ -156,9 +148,6 @@ Invoice::Invoice(const Invoice& from)
     _this->_impl_.address_.Set(from._internal_address(), 
       _this->GetArenaForAllocation());
   }
-  if (from._internal_has_invoice_details()) {
-    _this->_impl_.invoice_details_ = new ::GrpcApiPractice::InvoiceDetails(*from._impl_.invoice_details_);
-  }
   if (from._internal_has_client()) {
     _this->_impl_.client_ = new ::GrpcApiPractice::Client(*from._impl_.client_);
   }
@@ -171,9 +160,9 @@ inline void Invoice::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.name_){}
+      decltype(_impl_.invoice_details_){arena}
+    , decltype(_impl_.name_){}
     , decltype(_impl_.address_){}
-    , decltype(_impl_.invoice_details_){nullptr}
     , decltype(_impl_.client_){nullptr}
     , decltype(_impl_.id_){uint64_t{0u}}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -199,9 +188,9 @@ Invoice::~Invoice() {
 
 inline void Invoice::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.invoice_details_.~RepeatedPtrField();
   _impl_.name_.Destroy();
   _impl_.address_.Destroy();
-  if (this != internal_default_instance()) delete _impl_.invoice_details_;
   if (this != internal_default_instance()) delete _impl_.client_;
 }
 
@@ -215,12 +204,9 @@ void Invoice::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  _impl_.invoice_details_.Clear();
   _impl_.name_.ClearToEmpty();
   _impl_.address_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && _impl_.invoice_details_ != nullptr) {
-    delete _impl_.invoice_details_;
-  }
-  _impl_.invoice_details_ = nullptr;
   if (GetArenaForAllocation() == nullptr && _impl_.client_ != nullptr) {
     delete _impl_.client_;
   }
@@ -263,11 +249,16 @@ const char* Invoice::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
         } else
           goto handle_unusual;
         continue;
-      // .GrpcApiPractice.InvoiceDetails invoice_details = 4;
+      // repeated .GrpcApiPractice.InvoiceDetails invoice_details = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
-          ptr = ctx->ParseMessage(_internal_mutable_invoice_details(), ptr);
-          CHK_(ptr);
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_invoice_details(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -334,11 +325,12 @@ uint8_t* Invoice::_InternalSerialize(
         3, this->_internal_address(), target);
   }
 
-  // .GrpcApiPractice.InvoiceDetails invoice_details = 4;
-  if (this->_internal_has_invoice_details()) {
+  // repeated .GrpcApiPractice.InvoiceDetails invoice_details = 4;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_invoice_details_size()); i < n; i++) {
+    const auto& repfield = this->_internal_invoice_details(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(4, _Internal::invoice_details(this),
-        _Internal::invoice_details(this).GetCachedSize(), target, stream);
+        InternalWriteMessage(4, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // .GrpcApiPractice.Client client = 5;
@@ -364,6 +356,13 @@ size_t Invoice::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  // repeated .GrpcApiPractice.InvoiceDetails invoice_details = 4;
+  total_size += 1UL * this->_internal_invoice_details_size();
+  for (const auto& msg : this->_impl_.invoice_details_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
   // string name = 2;
   if (!this->_internal_name().empty()) {
     total_size += 1 +
@@ -376,13 +375,6 @@ size_t Invoice::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_address());
-  }
-
-  // .GrpcApiPractice.InvoiceDetails invoice_details = 4;
-  if (this->_internal_has_invoice_details()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.invoice_details_);
   }
 
   // .GrpcApiPractice.Client client = 5;
@@ -415,15 +407,12 @@ void Invoice::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOB
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  _this->_impl_.invoice_details_.MergeFrom(from._impl_.invoice_details_);
   if (!from._internal_name().empty()) {
     _this->_internal_set_name(from._internal_name());
   }
   if (!from._internal_address().empty()) {
     _this->_internal_set_address(from._internal_address());
-  }
-  if (from._internal_has_invoice_details()) {
-    _this->_internal_mutable_invoice_details()->::GrpcApiPractice::InvoiceDetails::MergeFrom(
-        from._internal_invoice_details());
   }
   if (from._internal_has_client()) {
     _this->_internal_mutable_client()->::GrpcApiPractice::Client::MergeFrom(
@@ -451,6 +440,7 @@ void Invoice::InternalSwap(Invoice* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.invoice_details_.InternalSwap(&other->_impl_.invoice_details_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.name_, lhs_arena,
       &other->_impl_.name_, rhs_arena
@@ -462,9 +452,9 @@ void Invoice::InternalSwap(Invoice* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(Invoice, _impl_.id_)
       + sizeof(Invoice::_impl_.id_)
-      - PROTOBUF_FIELD_OFFSET(Invoice, _impl_.invoice_details_)>(
-          reinterpret_cast<char*>(&_impl_.invoice_details_),
-          reinterpret_cast<char*>(&other->_impl_.invoice_details_));
+      - PROTOBUF_FIELD_OFFSET(Invoice, _impl_.client_)>(
+          reinterpret_cast<char*>(&_impl_.client_),
+          reinterpret_cast<char*>(&other->_impl_.client_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Invoice::GetMetadata() const {

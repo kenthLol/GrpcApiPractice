@@ -6,9 +6,9 @@ package GrpcApiPractice;
 
 message Invoice
 {
-    uint64 id                                      = 1;
-    string name                                    = 2;
-    string address                                 = 3;
-    GrpcApiPractice.InvoiceDetails invoice_details = 4;
-    GrpcApiPractice.Client client                  = 5;
+    uint64 id                                               = 1;
+    string name                                             = 2;
+    string address                                          = 3;
+    repeated GrpcApiPractice.InvoiceDetails invoice_details = 4;
+    GrpcApiPractice.Client client                           = 5;
 }

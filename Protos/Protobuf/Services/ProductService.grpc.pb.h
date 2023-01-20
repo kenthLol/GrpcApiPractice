@@ -49,6 +49,13 @@ class ProductService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GrpcApiPractice::ListProductResponse>> PrepareAsyncListProduct(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GrpcApiPractice::ListProductResponse>>(PrepareAsyncListProductRaw(context, request, cq));
     }
+    virtual ::grpc::Status ListProductById(::grpc::ClientContext* context, const ::GrpcApiPractice::ProductByIdRequest& request, ::GrpcApiPractice::ListProductResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GrpcApiPractice::ListProductResponse>> AsyncListProductById(::grpc::ClientContext* context, const ::GrpcApiPractice::ProductByIdRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GrpcApiPractice::ListProductResponse>>(AsyncListProductByIdRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GrpcApiPractice::ListProductResponse>> PrepareAsyncListProductById(::grpc::ClientContext* context, const ::GrpcApiPractice::ProductByIdRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GrpcApiPractice::ListProductResponse>>(PrepareAsyncListProductByIdRaw(context, request, cq));
+    }
     class async_interface {
      public:
       virtual ~async_interface() {}
@@ -56,6 +63,8 @@ class ProductService final {
       virtual void CreateProduct(::grpc::ClientContext* context, const ::GrpcApiPractice::Product* request, ::GrpcApiPractice::ServiceStatus* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void ListProduct(::grpc::ClientContext* context, const ::google::protobuf::Empty* request, ::GrpcApiPractice::ListProductResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void ListProduct(::grpc::ClientContext* context, const ::google::protobuf::Empty* request, ::GrpcApiPractice::ListProductResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void ListProductById(::grpc::ClientContext* context, const ::GrpcApiPractice::ProductByIdRequest* request, ::GrpcApiPractice::ListProductResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ListProductById(::grpc::ClientContext* context, const ::GrpcApiPractice::ProductByIdRequest* request, ::GrpcApiPractice::ListProductResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
@@ -65,6 +74,8 @@ class ProductService final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::GrpcApiPractice::ServiceStatus>* PrepareAsyncCreateProductRaw(::grpc::ClientContext* context, const ::GrpcApiPractice::Product& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::GrpcApiPractice::ListProductResponse>* AsyncListProductRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::GrpcApiPractice::ListProductResponse>* PrepareAsyncListProductRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::GrpcApiPractice::ListProductResponse>* AsyncListProductByIdRaw(::grpc::ClientContext* context, const ::GrpcApiPractice::ProductByIdRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::GrpcApiPractice::ListProductResponse>* PrepareAsyncListProductByIdRaw(::grpc::ClientContext* context, const ::GrpcApiPractice::ProductByIdRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -83,6 +94,13 @@ class ProductService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GrpcApiPractice::ListProductResponse>> PrepareAsyncListProduct(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GrpcApiPractice::ListProductResponse>>(PrepareAsyncListProductRaw(context, request, cq));
     }
+    ::grpc::Status ListProductById(::grpc::ClientContext* context, const ::GrpcApiPractice::ProductByIdRequest& request, ::GrpcApiPractice::ListProductResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GrpcApiPractice::ListProductResponse>> AsyncListProductById(::grpc::ClientContext* context, const ::GrpcApiPractice::ProductByIdRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GrpcApiPractice::ListProductResponse>>(AsyncListProductByIdRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GrpcApiPractice::ListProductResponse>> PrepareAsyncListProductById(::grpc::ClientContext* context, const ::GrpcApiPractice::ProductByIdRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GrpcApiPractice::ListProductResponse>>(PrepareAsyncListProductByIdRaw(context, request, cq));
+    }
     class async final :
       public StubInterface::async_interface {
      public:
@@ -90,6 +108,8 @@ class ProductService final {
       void CreateProduct(::grpc::ClientContext* context, const ::GrpcApiPractice::Product* request, ::GrpcApiPractice::ServiceStatus* response, ::grpc::ClientUnaryReactor* reactor) override;
       void ListProduct(::grpc::ClientContext* context, const ::google::protobuf::Empty* request, ::GrpcApiPractice::ListProductResponse* response, std::function<void(::grpc::Status)>) override;
       void ListProduct(::grpc::ClientContext* context, const ::google::protobuf::Empty* request, ::GrpcApiPractice::ListProductResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void ListProductById(::grpc::ClientContext* context, const ::GrpcApiPractice::ProductByIdRequest* request, ::GrpcApiPractice::ListProductResponse* response, std::function<void(::grpc::Status)>) override;
+      void ListProductById(::grpc::ClientContext* context, const ::GrpcApiPractice::ProductByIdRequest* request, ::GrpcApiPractice::ListProductResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -105,8 +125,11 @@ class ProductService final {
     ::grpc::ClientAsyncResponseReader< ::GrpcApiPractice::ServiceStatus>* PrepareAsyncCreateProductRaw(::grpc::ClientContext* context, const ::GrpcApiPractice::Product& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::GrpcApiPractice::ListProductResponse>* AsyncListProductRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::GrpcApiPractice::ListProductResponse>* PrepareAsyncListProductRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::GrpcApiPractice::ListProductResponse>* AsyncListProductByIdRaw(::grpc::ClientContext* context, const ::GrpcApiPractice::ProductByIdRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::GrpcApiPractice::ListProductResponse>* PrepareAsyncListProductByIdRaw(::grpc::ClientContext* context, const ::GrpcApiPractice::ProductByIdRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_CreateProduct_;
     const ::grpc::internal::RpcMethod rpcmethod_ListProduct_;
+    const ::grpc::internal::RpcMethod rpcmethod_ListProductById_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -116,6 +139,7 @@ class ProductService final {
     virtual ~Service();
     virtual ::grpc::Status CreateProduct(::grpc::ServerContext* context, const ::GrpcApiPractice::Product* request, ::GrpcApiPractice::ServiceStatus* response);
     virtual ::grpc::Status ListProduct(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GrpcApiPractice::ListProductResponse* response);
+    virtual ::grpc::Status ListProductById(::grpc::ServerContext* context, const ::GrpcApiPractice::ProductByIdRequest* request, ::GrpcApiPractice::ListProductResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_CreateProduct : public BaseClass {
@@ -157,7 +181,27 @@ class ProductService final {
       ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_CreateProduct<WithAsyncMethod_ListProduct<Service > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_ListProductById : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_ListProductById() {
+      ::grpc::Service::MarkMethodAsync(2);
+    }
+    ~WithAsyncMethod_ListProductById() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListProductById(::grpc::ServerContext* /*context*/, const ::GrpcApiPractice::ProductByIdRequest* /*request*/, ::GrpcApiPractice::ListProductResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestListProductById(::grpc::ServerContext* context, ::GrpcApiPractice::ProductByIdRequest* request, ::grpc::ServerAsyncResponseWriter< ::GrpcApiPractice::ListProductResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_CreateProduct<WithAsyncMethod_ListProduct<WithAsyncMethod_ListProductById<Service > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_CreateProduct : public BaseClass {
    private:
@@ -212,7 +256,34 @@ class ProductService final {
     virtual ::grpc::ServerUnaryReactor* ListProduct(
       ::grpc::CallbackServerContext* /*context*/, const ::google::protobuf::Empty* /*request*/, ::GrpcApiPractice::ListProductResponse* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_CreateProduct<WithCallbackMethod_ListProduct<Service > > CallbackService;
+  template <class BaseClass>
+  class WithCallbackMethod_ListProductById : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_ListProductById() {
+      ::grpc::Service::MarkMethodCallback(2,
+          new ::grpc::internal::CallbackUnaryHandler< ::GrpcApiPractice::ProductByIdRequest, ::GrpcApiPractice::ListProductResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::GrpcApiPractice::ProductByIdRequest* request, ::GrpcApiPractice::ListProductResponse* response) { return this->ListProductById(context, request, response); }));}
+    void SetMessageAllocatorFor_ListProductById(
+        ::grpc::MessageAllocator< ::GrpcApiPractice::ProductByIdRequest, ::GrpcApiPractice::ListProductResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::GrpcApiPractice::ProductByIdRequest, ::GrpcApiPractice::ListProductResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_ListProductById() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListProductById(::grpc::ServerContext* /*context*/, const ::GrpcApiPractice::ProductByIdRequest* /*request*/, ::GrpcApiPractice::ListProductResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ListProductById(
+      ::grpc::CallbackServerContext* /*context*/, const ::GrpcApiPractice::ProductByIdRequest* /*request*/, ::GrpcApiPractice::ListProductResponse* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_CreateProduct<WithCallbackMethod_ListProduct<WithCallbackMethod_ListProductById<Service > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_CreateProduct : public BaseClass {
@@ -244,6 +315,23 @@ class ProductService final {
     }
     // disable synchronous version of this method
     ::grpc::Status ListProduct(::grpc::ServerContext* /*context*/, const ::google::protobuf::Empty* /*request*/, ::GrpcApiPractice::ListProductResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_ListProductById : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_ListProductById() {
+      ::grpc::Service::MarkMethodGeneric(2);
+    }
+    ~WithGenericMethod_ListProductById() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListProductById(::grpc::ServerContext* /*context*/, const ::GrpcApiPractice::ProductByIdRequest* /*request*/, ::GrpcApiPractice::ListProductResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -289,6 +377,26 @@ class ProductService final {
     }
   };
   template <class BaseClass>
+  class WithRawMethod_ListProductById : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_ListProductById() {
+      ::grpc::Service::MarkMethodRaw(2);
+    }
+    ~WithRawMethod_ListProductById() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListProductById(::grpc::ServerContext* /*context*/, const ::GrpcApiPractice::ProductByIdRequest* /*request*/, ::GrpcApiPractice::ListProductResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestListProductById(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithRawCallbackMethod_CreateProduct : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
@@ -330,6 +438,28 @@ class ProductService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* ListProduct(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_ListProductById : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_ListProductById() {
+      ::grpc::Service::MarkMethodRawCallback(2,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListProductById(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_ListProductById() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListProductById(::grpc::ServerContext* /*context*/, const ::GrpcApiPractice::ProductByIdRequest* /*request*/, ::GrpcApiPractice::ListProductResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ListProductById(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
@@ -386,9 +516,36 @@ class ProductService final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedListProduct(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::protobuf::Empty,::GrpcApiPractice::ListProductResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_CreateProduct<WithStreamedUnaryMethod_ListProduct<Service > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_ListProductById : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_ListProductById() {
+      ::grpc::Service::MarkMethodStreamed(2,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::GrpcApiPractice::ProductByIdRequest, ::GrpcApiPractice::ListProductResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::GrpcApiPractice::ProductByIdRequest, ::GrpcApiPractice::ListProductResponse>* streamer) {
+                       return this->StreamedListProductById(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_ListProductById() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status ListProductById(::grpc::ServerContext* /*context*/, const ::GrpcApiPractice::ProductByIdRequest* /*request*/, ::GrpcApiPractice::ListProductResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedListProductById(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::GrpcApiPractice::ProductByIdRequest,::GrpcApiPractice::ListProductResponse>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_CreateProduct<WithStreamedUnaryMethod_ListProduct<WithStreamedUnaryMethod_ListProductById<Service > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_CreateProduct<WithStreamedUnaryMethod_ListProduct<Service > > StreamedService;
+  typedef WithStreamedUnaryMethod_CreateProduct<WithStreamedUnaryMethod_ListProduct<WithStreamedUnaryMethod_ListProductById<Service > > > StreamedService;
 };
 
 }  // namespace GrpcApiPractice

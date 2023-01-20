@@ -18,6 +18,9 @@ class MockProductServiceStub : public ProductService::StubInterface {
   MOCK_METHOD3(ListProduct, ::grpc::Status(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::GrpcApiPractice::ListProductResponse* response));
   MOCK_METHOD3(AsyncListProductRaw, ::grpc::ClientAsyncResponseReaderInterface< ::GrpcApiPractice::ListProductResponse>*(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq));
   MOCK_METHOD3(PrepareAsyncListProductRaw, ::grpc::ClientAsyncResponseReaderInterface< ::GrpcApiPractice::ListProductResponse>*(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq));
+  MOCK_METHOD3(ListProductById, ::grpc::Status(::grpc::ClientContext* context, const ::GrpcApiPractice::ProductByIdRequest& request, ::GrpcApiPractice::ListProductResponse* response));
+  MOCK_METHOD3(AsyncListProductByIdRaw, ::grpc::ClientAsyncResponseReaderInterface< ::GrpcApiPractice::ListProductResponse>*(::grpc::ClientContext* context, const ::GrpcApiPractice::ProductByIdRequest& request, ::grpc::CompletionQueue* cq));
+  MOCK_METHOD3(PrepareAsyncListProductByIdRaw, ::grpc::ClientAsyncResponseReaderInterface< ::GrpcApiPractice::ListProductResponse>*(::grpc::ClientContext* context, const ::GrpcApiPractice::ProductByIdRequest& request, ::grpc::CompletionQueue* cq));
 };
 
 } // namespace GrpcApiPractice

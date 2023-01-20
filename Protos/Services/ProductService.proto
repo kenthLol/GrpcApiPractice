@@ -10,6 +10,12 @@ service ProductService
 {
     rpc CreateProduct(GrpcApiPractice.Product) returns (GrpcApiPractice.ServiceStatus) { }
     rpc ListProduct(google.protobuf.Empty) returns (ListProductResponse) { }
+    rpc ListProductById (ProductByIdRequest) returns (ListProductResponse) { }
+}
+
+message ProductByIdRequest
+{
+    int64 product_id = 1;
 }
 
 message ListProductResponse

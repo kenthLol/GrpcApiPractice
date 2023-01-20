@@ -24,6 +24,7 @@ namespace GrpcApiPractice {
 static const char* ProductService_method_names[] = {
   "/GrpcApiPractice.ProductService/CreateProduct",
   "/GrpcApiPractice.ProductService/ListProduct",
+  "/GrpcApiPractice.ProductService/ListProductById",
 };
 
 std::unique_ptr< ProductService::Stub> ProductService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -35,6 +36,7 @@ std::unique_ptr< ProductService::Stub> ProductService::NewStub(const std::shared
 ProductService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
   : channel_(channel), rpcmethod_CreateProduct_(ProductService_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_ListProduct_(ProductService_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ListProductById_(ProductService_method_names[2], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status ProductService::Stub::CreateProduct(::grpc::ClientContext* context, const ::GrpcApiPractice::Product& request, ::GrpcApiPractice::ServiceStatus* response) {
@@ -83,6 +85,29 @@ void ProductService::Stub::async::ListProduct(::grpc::ClientContext* context, co
   return result;
 }
 
+::grpc::Status ProductService::Stub::ListProductById(::grpc::ClientContext* context, const ::GrpcApiPractice::ProductByIdRequest& request, ::GrpcApiPractice::ListProductResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::GrpcApiPractice::ProductByIdRequest, ::GrpcApiPractice::ListProductResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_ListProductById_, context, request, response);
+}
+
+void ProductService::Stub::async::ListProductById(::grpc::ClientContext* context, const ::GrpcApiPractice::ProductByIdRequest* request, ::GrpcApiPractice::ListProductResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::GrpcApiPractice::ProductByIdRequest, ::GrpcApiPractice::ListProductResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ListProductById_, context, request, response, std::move(f));
+}
+
+void ProductService::Stub::async::ListProductById(::grpc::ClientContext* context, const ::GrpcApiPractice::ProductByIdRequest* request, ::GrpcApiPractice::ListProductResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ListProductById_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::GrpcApiPractice::ListProductResponse>* ProductService::Stub::PrepareAsyncListProductByIdRaw(::grpc::ClientContext* context, const ::GrpcApiPractice::ProductByIdRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::GrpcApiPractice::ListProductResponse, ::GrpcApiPractice::ProductByIdRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_ListProductById_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::GrpcApiPractice::ListProductResponse>* ProductService::Stub::AsyncListProductByIdRaw(::grpc::ClientContext* context, const ::GrpcApiPractice::ProductByIdRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncListProductByIdRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
 ProductService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       ProductService_method_names[0],
@@ -104,6 +129,16 @@ ProductService::Service::Service() {
              ::GrpcApiPractice::ListProductResponse* resp) {
                return service->ListProduct(ctx, req, resp);
              }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      ProductService_method_names[2],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< ProductService::Service, ::GrpcApiPractice::ProductByIdRequest, ::GrpcApiPractice::ListProductResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](ProductService::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::GrpcApiPractice::ProductByIdRequest* req,
+             ::GrpcApiPractice::ListProductResponse* resp) {
+               return service->ListProductById(ctx, req, resp);
+             }, this)));
 }
 
 ProductService::Service::~Service() {
@@ -117,6 +152,13 @@ ProductService::Service::~Service() {
 }
 
 ::grpc::Status ProductService::Service::ListProduct(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::GrpcApiPractice::ListProductResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status ProductService::Service::ListProductById(::grpc::ServerContext* context, const ::GrpcApiPractice::ProductByIdRequest* request, ::GrpcApiPractice::ListProductResponse* response) {
   (void) context;
   (void) request;
   (void) response;

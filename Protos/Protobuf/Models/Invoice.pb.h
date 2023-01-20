@@ -179,12 +179,30 @@ class Invoice final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kInvoiceDetailsFieldNumber = 4,
     kNameFieldNumber = 2,
     kAddressFieldNumber = 3,
-    kInvoiceDetailsFieldNumber = 4,
     kClientFieldNumber = 5,
     kIdFieldNumber = 1,
   };
+  // repeated .GrpcApiPractice.InvoiceDetails invoice_details = 4;
+  int invoice_details_size() const;
+  private:
+  int _internal_invoice_details_size() const;
+  public:
+  void clear_invoice_details();
+  ::GrpcApiPractice::InvoiceDetails* mutable_invoice_details(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::GrpcApiPractice::InvoiceDetails >*
+      mutable_invoice_details();
+  private:
+  const ::GrpcApiPractice::InvoiceDetails& _internal_invoice_details(int index) const;
+  ::GrpcApiPractice::InvoiceDetails* _internal_add_invoice_details();
+  public:
+  const ::GrpcApiPractice::InvoiceDetails& invoice_details(int index) const;
+  ::GrpcApiPractice::InvoiceDetails* add_invoice_details();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::GrpcApiPractice::InvoiceDetails >&
+      invoice_details() const;
+
   // string name = 2;
   void clear_name();
   const std::string& name() const;
@@ -212,24 +230,6 @@ class Invoice final :
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_address(const std::string& value);
   std::string* _internal_mutable_address();
   public:
-
-  // .GrpcApiPractice.InvoiceDetails invoice_details = 4;
-  bool has_invoice_details() const;
-  private:
-  bool _internal_has_invoice_details() const;
-  public:
-  void clear_invoice_details();
-  const ::GrpcApiPractice::InvoiceDetails& invoice_details() const;
-  PROTOBUF_NODISCARD ::GrpcApiPractice::InvoiceDetails* release_invoice_details();
-  ::GrpcApiPractice::InvoiceDetails* mutable_invoice_details();
-  void set_allocated_invoice_details(::GrpcApiPractice::InvoiceDetails* invoice_details);
-  private:
-  const ::GrpcApiPractice::InvoiceDetails& _internal_invoice_details() const;
-  ::GrpcApiPractice::InvoiceDetails* _internal_mutable_invoice_details();
-  public:
-  void unsafe_arena_set_allocated_invoice_details(
-      ::GrpcApiPractice::InvoiceDetails* invoice_details);
-  ::GrpcApiPractice::InvoiceDetails* unsafe_arena_release_invoice_details();
 
   // .GrpcApiPractice.Client client = 5;
   bool has_client() const;
@@ -266,9 +266,9 @@ class Invoice final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::GrpcApiPractice::InvoiceDetails > invoice_details_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr address_;
-    ::GrpcApiPractice::InvoiceDetails* invoice_details_;
     ::GrpcApiPractice::Client* client_;
     uint64_t id_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -407,89 +407,41 @@ inline void Invoice::set_allocated_address(std::string* address) {
   // @@protoc_insertion_point(field_set_allocated:GrpcApiPractice.Invoice.address)
 }
 
-// .GrpcApiPractice.InvoiceDetails invoice_details = 4;
-inline bool Invoice::_internal_has_invoice_details() const {
-  return this != internal_default_instance() && _impl_.invoice_details_ != nullptr;
+// repeated .GrpcApiPractice.InvoiceDetails invoice_details = 4;
+inline int Invoice::_internal_invoice_details_size() const {
+  return _impl_.invoice_details_.size();
 }
-inline bool Invoice::has_invoice_details() const {
-  return _internal_has_invoice_details();
+inline int Invoice::invoice_details_size() const {
+  return _internal_invoice_details_size();
 }
-inline const ::GrpcApiPractice::InvoiceDetails& Invoice::_internal_invoice_details() const {
-  const ::GrpcApiPractice::InvoiceDetails* p = _impl_.invoice_details_;
-  return p != nullptr ? *p : reinterpret_cast<const ::GrpcApiPractice::InvoiceDetails&>(
-      ::GrpcApiPractice::_InvoiceDetails_default_instance_);
-}
-inline const ::GrpcApiPractice::InvoiceDetails& Invoice::invoice_details() const {
-  // @@protoc_insertion_point(field_get:GrpcApiPractice.Invoice.invoice_details)
-  return _internal_invoice_details();
-}
-inline void Invoice::unsafe_arena_set_allocated_invoice_details(
-    ::GrpcApiPractice::InvoiceDetails* invoice_details) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.invoice_details_);
-  }
-  _impl_.invoice_details_ = invoice_details;
-  if (invoice_details) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:GrpcApiPractice.Invoice.invoice_details)
-}
-inline ::GrpcApiPractice::InvoiceDetails* Invoice::release_invoice_details() {
-  
-  ::GrpcApiPractice::InvoiceDetails* temp = _impl_.invoice_details_;
-  _impl_.invoice_details_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::GrpcApiPractice::InvoiceDetails* Invoice::unsafe_arena_release_invoice_details() {
-  // @@protoc_insertion_point(field_release:GrpcApiPractice.Invoice.invoice_details)
-  
-  ::GrpcApiPractice::InvoiceDetails* temp = _impl_.invoice_details_;
-  _impl_.invoice_details_ = nullptr;
-  return temp;
-}
-inline ::GrpcApiPractice::InvoiceDetails* Invoice::_internal_mutable_invoice_details() {
-  
-  if (_impl_.invoice_details_ == nullptr) {
-    auto* p = CreateMaybeMessage<::GrpcApiPractice::InvoiceDetails>(GetArenaForAllocation());
-    _impl_.invoice_details_ = p;
-  }
-  return _impl_.invoice_details_;
-}
-inline ::GrpcApiPractice::InvoiceDetails* Invoice::mutable_invoice_details() {
-  ::GrpcApiPractice::InvoiceDetails* _msg = _internal_mutable_invoice_details();
+inline ::GrpcApiPractice::InvoiceDetails* Invoice::mutable_invoice_details(int index) {
   // @@protoc_insertion_point(field_mutable:GrpcApiPractice.Invoice.invoice_details)
-  return _msg;
+  return _impl_.invoice_details_.Mutable(index);
 }
-inline void Invoice::set_allocated_invoice_details(::GrpcApiPractice::InvoiceDetails* invoice_details) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.invoice_details_);
-  }
-  if (invoice_details) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(invoice_details));
-    if (message_arena != submessage_arena) {
-      invoice_details = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, invoice_details, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.invoice_details_ = invoice_details;
-  // @@protoc_insertion_point(field_set_allocated:GrpcApiPractice.Invoice.invoice_details)
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::GrpcApiPractice::InvoiceDetails >*
+Invoice::mutable_invoice_details() {
+  // @@protoc_insertion_point(field_mutable_list:GrpcApiPractice.Invoice.invoice_details)
+  return &_impl_.invoice_details_;
+}
+inline const ::GrpcApiPractice::InvoiceDetails& Invoice::_internal_invoice_details(int index) const {
+  return _impl_.invoice_details_.Get(index);
+}
+inline const ::GrpcApiPractice::InvoiceDetails& Invoice::invoice_details(int index) const {
+  // @@protoc_insertion_point(field_get:GrpcApiPractice.Invoice.invoice_details)
+  return _internal_invoice_details(index);
+}
+inline ::GrpcApiPractice::InvoiceDetails* Invoice::_internal_add_invoice_details() {
+  return _impl_.invoice_details_.Add();
+}
+inline ::GrpcApiPractice::InvoiceDetails* Invoice::add_invoice_details() {
+  ::GrpcApiPractice::InvoiceDetails* _add = _internal_add_invoice_details();
+  // @@protoc_insertion_point(field_add:GrpcApiPractice.Invoice.invoice_details)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::GrpcApiPractice::InvoiceDetails >&
+Invoice::invoice_details() const {
+  // @@protoc_insertion_point(field_list:GrpcApiPractice.Invoice.invoice_details)
+  return _impl_.invoice_details_;
 }
 
 // .GrpcApiPractice.Client client = 5;

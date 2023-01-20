@@ -1,4 +1,24 @@
 syntax = "proto3";
 
-import "Models/Client.proto";
 package GrpcApiPractice;
+
+import "Models/Invoice.proto";
+import "Models/ServiceStatus.proto";
+import "google/protobuf/empty.proto";
+
+service InvoiceService
+{
+    rpc CreateInvoice(GrpcApiPractice.Invoice) returns (GrpcApiPractice.ServiceStatus) { }
+    rpc ListInvoice(google.protobuf.Empty) returns (ListInvoiceResponse) { }
+    rpc ListInvoiceById (InvoiceByIdRequest) returns (ListInvoiceResponse) { }
+}
+
+message InvoiceByIdRequest
+{
+    int64 invoice_id = 1;
+}
+
+message ListInvoiceResponse
+{
+    repeated GrpcApiPractice.Invoice invoice = 1;
+}
